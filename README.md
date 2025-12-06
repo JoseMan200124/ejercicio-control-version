@@ -18,8 +18,8 @@ Incluye:
 ```mermaid
 flowchart LR
     client[Cliente / Tester] -->|HTTP| ingress[Ingress NGINX demo.local]
-    ingress --> service[Service demo-service (ClusterIP)]
-    service --> pods[Pods demo-api<br/>(Deployment + HPA)]
+    ingress --> service[Service demo-service ClusterIP]
+    service --> pods[Pods demo-api Deployment HPA]
     pods --> app[Django + Gunicorn]
     app --> db[SQLite db.sqlite3]
 ```
@@ -109,19 +109,17 @@ El pipeline está definido en `.github/workflows/ci-cd.yml` y se ejecuta en cada
 flowchart LR
     dev[Developer] -->|push main| gha[GitHub Actions]
 
-    subgraph CI [CI]
+    subgraph CI
         gha --> deps[Install dependencies]
-        deps --> tests[Unit tests + coverage]
+        deps --> tests[Unit tests and coverage]
         tests --> flake[Flake8]
-        flake --> bandit[Bandit (security scan)]
+        flake --> bandit[Bandit security scan]
     end
 
-    subgraph CD [CD]
-        bandit --> docker_build[Docker build & push
-(Docker Hub)]
+    subgraph CD
+        bandit --> docker_build[Docker build and push]
         docker_build --> trivy[Trivy vulnerability scan]
-        trivy --> deploy[Deploy to Kubernetes
-(kind cluster)]
+        trivy --> deploy[Deploy to Kubernetes]
     end
 ```
 
@@ -172,7 +170,7 @@ Crear y activar un entorno virtual:
 
 ```bash
 python -m venv venv
-source venv/bin/activate      # En Windows: venv\Scripts\activate
+source venv/bin/activate      # En Windows: venv\Scriptsctivate
 ```
 
 Instalar dependencias de desarrollo:
